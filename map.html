@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Примеры. Фильтрация объектов по признакам.</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript" src="https://yandex.st/jquery/2.2.3/jquery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="map.css">
+	<script type="text/javascript">   
+			ymaps.ready(init);
+	function init() {
+	    var myMap = new ymaps.Map('map', {
+	            center: [43.2527, 76.9358],
+	            zoom: 13,
+	            controls: ['zoomControl', 'geolocationControl', 'routeButtonControl', 'searchControl']
+	        }, {
+	            searchControlProvider: 'yandex#search'
+	        });
+
+	    // сделать мои json в отдельную папку и открыть этот код
+		    // objectManager = new ymaps.ObjectManager({
+	     //        // Чтобы метки начали кластеризоваться, выставляем опцию.
+	     //        clusterize: true,
+	     //        // ObjectManager принимает те же опции, что и кластеризатор.
+	     //        gridSize: 32,
+	     //        clusterDisableClickZoom: true
+	     //    });
+	     //    objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+		    // objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+		    // myMap.geoObjects.add(objectManager);
+
+		    // $.ajax({
+      //   	url: "data.json"
+		    // }).done(function(data) {
+		    //     objectManager.add(data);
+		    // });
+		   ///////////////////////////////////////
+
+
+    	// var customControl = new CustomControlClass();
+    	// map.controls.add(customControl, {
+     //    float: 'none',
+     //    position: {
+     //        top: 10,
+     //        left: 10
+     //    }
+    	// });
+	    
+	    function checkState () {
+	        var shownObjects,
+	            byClass = new ymaps.GeoQueryResult();
+
+	        if ($('#1').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Развлечение"');
+	        }
+	        if ($('#2').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Сады и Парки"')
+	            .add(byClass);
+	        }
+	        if ($('#3').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Шоппинг"')
+	            .add(byClass);
+	        }
+	        if ($('#4').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Культура"')
+	            .add(byClass);
+	        }
+	        if ($('#5').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Спорт и Релакс"')
+	            .add(byClass);
+	        }
+	        if ($('#6').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Выставки"')
+	            .add(byClass);
+	        }
+	        if ($('#7').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Театральные"')
+	            .add(byClass);
+	        }
+	        if ($('#8').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Ярмарки"')
+	            .add(byClass);
+	        }
+	        if ($('#9').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Спортивные Мероприятия"')
+	            .add(byClass);
+	        }
+	        if ($('#10').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Музыкальные ивенты"')
+	            .add(byClass);
+	        }
+	        if ($('#11').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Рестораны"')
+	            .add(byClass);
+	        }
+	        if ($('#12').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Закусочные"')
+	            .add(byClass);
+	        }
+	        if ($('#13').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Столовые"')
+	            .add(byClass);
+	        }
+	        if ($('#14').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Кондитерские"')
+	            .add(byClass);
+	        }
+	        if ($('#15').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Бары"')
+	            .add(byClass);
+	        }
+	        if ($('#16').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Отели"')
+	            .add(byClass);
+	        }
+	        if ($('#17').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Хостелы"')
+	            .add(byClass);
+	        }
+	        if ($('#18').prop('checked')) {
+	            byClass = myObjects.search('properties.hintContent = "Обменные пункты"')
+	            .add(byClass);
+	        }
+
+	        shownObjects = byClass.addToMap(myMap);
+	        // Объекты, которые не попали в выборку, нужно убрать с карты.
+	        myObjects.remove(shownObjects).removeFromMap(myMap);
+	    }
+	    
+	    $('#1').click(checkState);
+	    $('#2').click(checkState);
+	    $('#3').click(checkState);
+	    $('#4').click(checkState);
+	    $('#5').click(checkState);
+	    $('#6').click(checkState);
+	    $('#7').click(checkState);
+	    $('#8').click(checkState);
+	    $('#9').click(checkState);
+	    $('#10').click(checkState);
+	    $('#11').click(checkState);
+	    $('#12').click(checkState);
+	    $('#13').click(checkState);
+	    $('#14').click(checkState);
+	    $('#15').click(checkState);
+	    $('#16').click(checkState);
+	    $('#17').click(checkState);
+	    $('#18').click(checkState);
+
+
+	    // Создадим объекты из их JSON-описания и добавим их на карту.
+	    var myObjects = ymaps.geoQuery({
+	        type: "FeatureCollection",
+	        features: [
+	            {
+	                type: 'Feature',
+	                id: 0,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2417, 76.9536]
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Хостел MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Бары"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 1,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2333, 76.9563],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Развлечение MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Развлечение"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 2,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2605, 76.9689]
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Сады и Парки MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Сады и Парки"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 3,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2712, 76.9496]
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Шоппинг MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Шоппинг"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 4,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2690, 76.9604],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Культура MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Культура"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 5,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2619, 76.9548],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Спорт и Релакс MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Спорт и Релакс"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 6,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2613, 76.9555],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Выставки MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Выставки"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 7,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2608, 76.9509],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Театральные MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Театральные"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 8,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2639, 76.9542],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Ярмарки MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Ярмарки"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 9,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2348, 76.9556],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Спортивные Мероприятия MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Спортивные Мероприятия"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 10,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2621, 76.9548],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Музыкальные ивенты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Музыкальные ивенты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 11,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2509, 76.8838],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Рестораны MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Рестораны"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 12,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2649, 76.9487],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Закусочные MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Закусочные"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 13,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2410, 76.9575],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Столовые MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Столовые"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 14,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2576, 76.9167],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Кондитерские MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Кондитерские"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 15,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2447, 76.9575],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Бары MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Бары"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 16,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2645, 76.9468],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Отели MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Отели"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 17,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2636, 76.9505],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Хостел MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Хостелы"
+	                },
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2636, 76.9524],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2448, 76.9345],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2469, 76.9341],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2553, 76.9359],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2594, 76.9387],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2597, 76.9380],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2599, 76.9393],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2531, 76.9247],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            },
+	            {
+	                type: 'Feature',
+	                id: 18,
+	                geometry: {
+	                    type: 'Point',
+	                    coordinates: [43.2501, 76.8833],
+	                },
+	                options: {
+	                    preset: 'islands#redIcon'
+	                },
+	                properties: {
+	                	balloonContent: [
+		                	'<address>',
+				            '<strong>Обменные пункты MyParadise</strong>',
+				            '<br/>',
+				            'Адрес: 119021, Москва, ул. Льва Толстого, 16',
+				            '<br/>',
+				            'Подробнее: <a href="https://company.yandex.ru/">https://hostel.ru</a>',
+				            '</address>'
+	                	].join(''),
+	                	clusterCaption: "Еще одна метка",
+	                	hintContent: "Обменные пункты"
+	                }
+	            }
+	        ]
+	    }).addToMap(myMap);
+
+
+		myObjects.searchInside(myMap)
+        // И затем добавим найденные объекты на карту.
+        .addToMap(myMap);
+    
+    	myMap.events.add('boundschange', function () {
+        // После каждого сдвига карты будем смотреть, какие объекты попадают в видимую область.
+        var visibleObjects = myObjects.searchInside(myMap).addToMap(myMap);
+        // Оставшиеся объекты будем удалять с карты.
+        myObjects.remove(visibleObjects).removeFromMap(myMap);
+    	});
+
+
+    	// myObjects.events
+     //    .add('mouseenter', function (e) {
+     //        // Ссылку на объект, вызвавший событие,
+     //        // можно получить из поля 'target'.
+     //        e.get('target').options.set('preset', 'islands#greenIcon');
+     //    })
+     //    .add('mouseleave', function (e) {
+     //        e.get('target').options.unset('preset');
+     //    });
+
+
+	}
+
+    </script>
+    <style>
+        body, html {
+            font-family: Arial;
+            font-size: 11pt;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #map {
+            width: 100%;
+            height: 64.5%;
+            margin-top:11%;
+        }
+    </style>
+</head>
+<body>
+
+ <div class="navigation_bar_homepage">
+<ul>
+  <li><a href="homepage.html">CitiZen<img src = "https://www.pngarts.com/files/1/Zen-PNG-Transparent-Image-1.png" style="width:50px; height:50px"></a>
+  <li><a href= "news.html">Лента</a>
+  <li><a href ="map.html">Карта</a>
+  <li><a href ="useful_info.html">Полезная информация </a>
+  <li><a href ="">Мой кабинет</a>
+    <li><a href ="signup.html">Регистрация</a>
+ </ul>
+</div><br><br>
+
+<div class="navigation_bar">
+    <ul>
+      <li><a>Места</a>
+          <ul>
+              <li><label class="container">Развлечения
+              <input type="checkbox" id ='1' checked="checked">
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Сады и парки
+              <input type="checkbox" id ='2' >
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Шоппинг
+              <input type="checkbox" id ='3' >
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Культура
+              <input type="checkbox" id ='4' >
+              <span class="checkmark"></span>
+            </label></li>
+            
+
+              <li><label class="container">Спорт и релакс
+              <input type="checkbox" id ='5' >
+              <span class="checkmark"></span>
+            </label></li>
+          </ul>
+      </li>
+      <li><a>События</a>
+          <ul>
+
+              <li><label class="container">Выставки
+              <input type="checkbox" id ='6' checked="checked">
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Театральные
+              <input type="checkbox" id ='7' >
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Ярмарки
+              <input type="checkbox" id ='8'>
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Спортивные Мероприятия
+              <input type="checkbox" id ='9'>
+              <span class="checkmark"></span>
+            </label></li>
+            
+
+              <li><label class="container">Музыкальные ивенты
+              <input type="checkbox" id ='10'>
+              <span class="checkmark"></span>
+            </label></li>
+
+          </ul>
+      <li><a>Еда и напитки </a>
+        <ul>
+
+            <li><label class="container">Рестораны
+              <input type="checkbox" id ='11' checked="checked">
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Закусочные
+              <input type="checkbox" id ='12' >
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Столовые
+              <input type="checkbox" id ='13'>
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Кондитерские
+              <input type="checkbox" id ='14'>
+              <span class="checkmark"></span>
+            </label></li>
+            
+
+              <li><label class="container">Бары
+              <input type="checkbox" id ='15'>
+              <span class="checkmark"></span>
+            </label></li>
+
+          </ul>
+      </li>
+      <li><a>Проживание</a>
+          <ul>
+              <li><label class="container">Отели
+              <input type="checkbox" id ='16' checked="checked">
+              <span class="checkmark"></span>
+            </label></li>
+
+              <li><label class="container">Хостелы
+              <input type="checkbox" id ='17' >
+              <span class="checkmark"></span>
+            </label></li>
+
+          </ul>
+      </li>
+       <li><a>Обменные пункты</a>
+           <ul>
+         <li><label class="container">Обменные пункты
+                  <input type="checkbox" id ='18' >
+                  <span class="checkmark"></span>
+                </label></li>
+            </ul>
+        </li>
+    </ul>
+
+    </div> <br><br>
+    <div id="map"></div>
+
+</body>
+</html>
